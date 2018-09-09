@@ -103,7 +103,7 @@ export default {
         return;
       }
 
-      axios.post('http://0.0.0.0/api/', { businessNumber: this.businessNumber })
+      axios.get(`http://0.0.0.0/api?businessNumber=${this.businessNumber}`)
         .then(({ data }) => {
           console.log(data);
 
