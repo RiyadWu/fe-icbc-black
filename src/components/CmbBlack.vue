@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="showErrorTip" class="weui-toptips weui-toptips_warn js_tooltips">
+      {{ errorMessage }}
+    </div>
     <form @submit="checkForm" action="#">
       <div class="weui-cells weui-cells_form">
         <div class="weui-cell" :class="invalidBusinessNumber? 'weui-cell_warn' : ''">
@@ -93,6 +96,8 @@ export default {
       hasSearched: false,
       hasPreviewData: false,
       invalidBusinessNumber: false,
+      errorMessage: '请输入15位商户号',
+      showErrorTip: false,
     };
   },
   methods: {
@@ -100,6 +105,10 @@ export default {
       e.preventDefault();
       if (this.businessNumber.length !== 15) {
         this.invalidBusinessNumber = true;
+        this.showErrorTip = true;
+        setTimeout(() => {
+          this.showErrorTip = false;
+        }, 2000);
         return;
       }
 
@@ -121,6 +130,10 @@ export default {
 </script>
 
 <style scoped>
+  form {
+    margin-top: 2.2em;
+  }
+
   .shop_info {
     margin-top: 2em;
   }
@@ -142,5 +155,8 @@ export default {
   }
   .search_button_container {
     margin-top: 1em;
+  }
+  .js_tooltips {
+    display: block;
   }
 </style>
