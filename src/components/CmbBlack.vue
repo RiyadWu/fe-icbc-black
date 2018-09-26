@@ -31,33 +31,33 @@
     <div v-if="hasSearched">
       <div v-if="hasPreviewData" class="shop_info">
         <div class="weui-form-preview">
-          <div class="weui-form-preview__hd">
-            <label class="weui-form-preview__label">收单机构</label>
-            <em class="weui-form-preview__value">{{ company }}</em>
-          </div>
+          <!--<div class="weui-form-preview__hd">-->
+            <!--<label class="weui-form-preview__label">收单机构</label>-->
+            <!--<em class="weui-form-preview__value">{{ company }}</em>-->
+          <!--</div>-->
           <div class="weui-form-preview__bd">
-            <p>
-              <label class="weui-form-preview__label">地区代码</label>
-              <span class="weui-form-preview__value">{{ areaCode }}</span>
-            </p>
-            <p>
-              <label class="weui-form-preview__label">商户类型</label>
-              <span class="weui-form-preview__value">{{ businessType }}</span>
-            </p>
-            <p>
-              <label class="weui-form-preview__label">商户费率</label>
-              <span class="weui-form-preview__value">{{ businessfee }}</span>
-            </p>
-            <p>
-              <label class="weui-form-preview__label">招行积分</label>
-              <i class="weui-icon-success integral_icon" v-if="cmbIntegral"></i>
-              <i class="weui-icon-warn integral_icon" v-else></i>
-            </p>
-            <p>
-              <label class="weui-form-preview__label">交行积分</label>
-              <i class="weui-icon-success integral_icon" v-if="ccbIntegral"></i>
-              <i class="weui-icon-warn integral_icon" v-else></i>
-            </p>
+            <!--<p>-->
+              <!--<label class="weui-form-preview__label">地区代码</label>-->
+              <!--<span class="weui-form-preview__value">{{ areaCode }}</span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label class="weui-form-preview__label">商户类型</label>-->
+              <!--<span class="weui-form-preview__value">{{ businessType }}</span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label class="weui-form-preview__label">商户费率</label>-->
+              <!--<span class="weui-form-preview__value">{{ businessfee }}</span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label class="weui-form-preview__label">招行积分</label>-->
+              <!--<i class="weui-icon-success integral_icon" v-if="cmbIntegral"></i>-->
+              <!--<i class="weui-icon-warn integral_icon" v-else></i>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label class="weui-form-preview__label">交行积分</label>-->
+              <!--<i class="weui-icon-success integral_icon" v-if="ccbIntegral"></i>-->
+              <!--<i class="weui-icon-warn integral_icon" v-else></i>-->
+            <!--</p>-->
             <p>
               <label class="weui-form-preview__label">招行积分黑名单查询</label>
               <i class="weui-icon-success integral_icon" v-if="cmbBlacklistRes.length === 0"></i>
@@ -66,7 +66,7 @@
           </div>
         </div>
         <p align="left" class="cmbBlacklistResHint">
-          近6个月未在招行黑名单上发现此商户号,则【招行积分黑名单查询】项显示为
+          近3个月未在招行黑名单上发现此商户号,则【招行积分黑名单查询】项显示为
           <i class="weui-icon-success integral_icon"></i>,
           否则显示出现过的月份
         </p>
@@ -114,8 +114,7 @@ export default {
 
       axios.get(`http://0.0.0.0/api?businessNumber=${this.businessNumber}`)
         .then(({ data }) => {
-          console.log(data);
-
+          this.cmbBlacklistRes = data.map(d => d.month).join(',');
           this.$refs.businessNumberInput.blur();
           this.hasSearched = true;
           this.invalidBusinessNumber = false;
